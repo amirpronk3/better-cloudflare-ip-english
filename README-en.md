@@ -9,7 +9,7 @@ The old version will be out of service soon, and subsequent versions will not be
 This project focuses on the study of the relationship between packet loss rate and network speed in anycast technology, for learning purposes only
 
 This is an English fork of main code, most of English users do not need such thing but cesorship is global problem and English is our main way to conduct a basic communication, I translated readme file alonge side main code to English, following post are translated from main read me file.
-Rules are respected however most of these terms only apply to Chinese users
+Rules are respected however most of these terms may only apply to Chinese users, please read before proceed using this tool.
 
 The prohibited scope guidelines are as follows
 
