@@ -34,47 +34,47 @@ goto main
 title CF preferred IP
 set /a menu=0
 echo 1. IPV4 preferred(TLS)&echo 2. IPV4 preferred&echo 3. IPV6 preferred(TLS)&echo 4. IPV6 preferred&echo 5. Single IP speed measurement(TLS)&echo 6. Single IP speed measurement&echo 7. Empty the cache&echo 8. update data&echo 0. quit&echo.
-set /p menu=请选择菜单(默认%menu%):
+set /p menu=Please select a menu (default %menu%):
 if %menu%==0 exit
-if %menu%==1 title IPV4优选(TLS)&set ips=ipv4&set filename=ips-v4.txt&set tls=1&goto bettercloudflareip
-if %menu%==2 title IPV4优选&set ips=ipv4&set filename=ips-v4.txt&set tls=0&goto bettercloudflareip
-if %menu%==3 title IPV6优选(TLS)&set ips=ipv6&set filename=ips-v6.txt&set tls=1&goto bettercloudflareip
-if %menu%==4 title IPV6优选&set ips=ipv6&set filename=ips-v6.txt&set tls=0&goto bettercloudflareip
-if %menu%==5 title 单IP测速(TLS)&call :singlehttps&goto main
-if %menu%==6 title 单IP测速&call :singlehttp&goto main
-if %menu%==7 del rtt.txt data.txt CR.txt CRLF.txt cut.txt speed.txt > nul 2>&1&RD /S /Q rtt > nul 2>&1&cls&echo 缓存已经清空&goto main
+if %menu%==1 title IPV4 preferred(TLS)&set ips=ipv4&set filename=ips-v4.txt&set tls=1&goto bettercloudflareip
+if %menu%==2 title IPV4 preferred&set ips=ipv4&set filename=ips-v4.txt&set tls=0&goto bettercloudflareip
+if %menu%==3 title IPV6 preferred(TLS)&set ips=ipv6&set filename=ips-v6.txt&set tls=1&goto bettercloudflareip
+if %menu%==4 title IPV4 preferred&set ips=ipv6&set filename=ips-v6.txt&set tls=0&goto bettercloudflareip
+if %menu%==5 title Single IP speed measurement(TLS)&call :singlehttps&goto main
+if %menu%==6 title Single IP speed measurement&call :singlehttp&goto main
+if %menu%==7 del rtt.txt data.txt CR.txt CRLF.txt cut.txt speed.txt > nul 2>&1&RD /S /Q rtt > nul 2>&1&cls&echo cache has been cleared&goto main
 if %menu%==8 del colo.txt url.txt ips-v4.txt ips-v6.txt > nul 2>&1&cls&goto notice
 cls
 goto main
 
 :singlehttps
 set /a port=443
-set /p ip=请输入需要测速的IP:
-set /p port=请输入需要测速的端口(默认%port%):
-echo 正在测速 !ip! 端口 !port!
+set /p ip=Please enter the IP that needs to be tested:
+set /p port=Please enter the port that needs to be tested (default %port%):
+echo is measuring speed !ip! port !port!
 for /f "delims=" %%i in ('curl --resolve !domain!:!port!:!ip! "https://!domain!:!port!/!file!" -o nul --connect-timeout 5 --max-time 15 -w %%{speed_download}') do (
 set /a speed_download=%%i/1024
-cls&echo !ip! 平均速度 !speed_download! kB/s
+cls&echo !ip! average speed !speed_download! kB/s
 )
 goto :eof
 
 :singlehttp
 set /a port=80
-set /p ip=请输入需要测速的IP:
-set /p port=请输入需要测速的端口(默认%port%):
-echo 正在测速 !ip! 端口 !port!
+set /p ip=Please enter the IP that needs to be tested:
+set /p port=Please enter the port that needs to be tested (default %port%):
+echo is measuring speed !ip! port !port!
 for /f "delims=" %%i in ('echo !ip! ^| find /c /v ":"') do (
 set /a ipmode=%%i
 )
 if !ipmode! EQU 0 (
 for /f "delims=" %%i in ('curl -x [!ip!]:!port! "http://!domain!:!port!/!file!" -o nul --connect-timeout 5 --max-time 15 -w %%{speed_download}') do (
 set /a speed_download=%%i/1024
-cls&echo !ip! 平均速度 !speed_download! kB/s
+cls&echo !ip! average speed !speed_download! kB/s
 )
 ) else (
 for /f "delims=" %%i in ('curl -x !ip!:!port! "http://!domain!:!port!/!file!" -o nul --connect-timeout 5 --max-time 15 -w %%{speed_download}') do (
 set /a speed_download=%%i/1024
-cls&echo !ip! 平均速度 !speed_download! kB/s
+cls&echo !ip! average speed !speed_download! kB/s
 )
 )
 goto :eof
@@ -82,11 +82,11 @@ goto :eof
 :bettercloudflareip
 set /a tasknum=10
 set /a bandwidth=1
-set /p bandwidth=请设置期望的带宽大小(默认最小%bandwidth%,单位 Mbps):
-set /p tasknum=请设置RTT测试进程数(默认%tasknum%,最大50):
+set /p bandwidth=Please set the expected bandwidth size (default minimum %bandwidth%, unit Mbps):
+set /p tasknum=Please set the number of RTT test processes (default %tasknum%, maximum 50):
 if %bandwidth% EQU 0 (set /a bandwidth=1)
-if %tasknum% EQU 0 (set /a tasknum=10&echo 进程数不能为0,自动设置为默认值)
-if %tasknum% GTR 50 (set /a tasknum=50&echo 超过最大进程限制,自动设置为最大值)
+if %tasknum% EQU 0 (set /a tasknum=10&echo The number of processes cannot be 0, it is automatically set to the default value)
+if %tasknum% GTR 50 (set /a tasknum=50&echo Exceeded the maximum process limit, automatically set to the maximum)
 set /a speed=bandwidth*128
 set /a startH=%time:~0,2%
 if %time:~3,1% EQU 0 (set /a startM=%time:~4,1%) else (set /a startM=%time:~3,2%)
@@ -97,10 +97,10 @@ exit
 :start
 del rtt.txt data.txt CR.txt CRLF.txt cut.txt speed.txt > nul 2>&1
 RD /S /Q rtt > nul 2>&1
-if not exist "RTT.bat" echo 当前程序不完整&echo 请重新下载Release版本: https://github.com/badafans/better-cloudflare-ip/releases&pause > nul&exit
-if not exist "CR2CRLF.exe" echo 当前程序不完整&echo 请重新下载Release版本: https://github.com/badafans/better-cloudflare-ip/releases&pause > nul&exit
+if not exist "RTT.bat" echo current program is incomplete&echo Please download the Release version again: https://github.com/badafans/better-cloudflare-ip/releases&pause > nul&exit
+if not exist "CR2CRLF.exe" echo current program is incomplete&echo Please download the Release version again: https://github.com/badafans/better-cloudflare-ip/releases&pause > nul&exit
 set /a n=0
-if !ips! EQU ipv4 (echo 正在生成 !ips!&goto getv4) else (echo 正在生成 !ips!&goto getv6)
+if !ips! EQU ipv4 (echo is generating !ips!&goto getv4) else (echo is generating !ips!&goto getv6)
 
 :getv4
 for /f "delims=" %%i in (%filename%) do (
@@ -202,29 +202,29 @@ if !n! EQU !tasknum! (goto rttstatus) else (set /a n=n+1&goto rtttest)
 :rttstatus
 for /f "delims=" %%i in ('dir rtt /o:-s /b^| findstr txt^| find /c /v ""') do (
 set /a status=%%i
-if !status! NEQ 0 (echo %time:~0,8% 等待RTT测试结束,剩余进程数 !status!&timeout /T 1 /NOBREAK > nul&goto rttstatus) else (echo %time:~0,8% RTT测试完成)
+if !status! NEQ 0 (echo %time:~0,8% Wait for the end of the RTT test, the number of remaining processes !status!&timeout /T 1 /NOBREAK > nul&goto rttstatus) else (echo %time:~0,8% RTT test completed)
 )
 for /f "delims=" %%i in ('dir rtt /o:-s /b^| findstr log^| find /c /v ""') do (
 set /a status=%%i
 if !status! NEQ 0 (
 copy rtt\*.log rtt.txt>nul
 ) else (
-echo 当前所有IP都存在RTT丢包
-echo 继续新的RTT测试
+echo All current IPs have RTT packet loss
+echo Continue with new RTT test
 goto start
 )
 )
-echo 待测速的IP地址
+echo IP address to be tested
 for /f "tokens=1,2 delims= " %%i in ('sort rtt.txt') do (
-echo %%j 往返延迟 %%i 毫秒
+echo %%j round trip delay %%i 毫秒
 )
-title 启动测速
+title start speed test
 set /a a=0
 for /f "tokens=1,2 delims= " %%i in ('sort rtt.txt') do (
 del CRLF.txt cut.txt speed.txt > nul 2>&1
 set avgms=%%i
 set anycast=%%j
-echo 正在测试 !anycast!
+echo testing !anycast!
 if !tls! EQU 1 (
 curl --resolve !domain!:443:!anycast! https://!domain!/!file! -o nul --connect-timeout 1 --max-time 10 > CR.txt 2>&1
 ) else (
@@ -268,7 +268,7 @@ set /a max=0
 for /f "tokens=1,2" %%i in ('type "speed.txt"') do (
 if %%i GEQ !max! set /a max=%%i
 )
-echo !anycast! 峰值速度 !max! kB/s
+echo !anycast! peak speed !max! kB/s
 if !max! GEQ !speed! goto end
 )
 goto start
@@ -282,7 +282,7 @@ if %time:~6,1% EQU 0 (set /a stopS=%time:~7,1%) else (set /a stopS=%time:~6,2%)
 set /a starttime=%startH%*3600+%startM%*60+%startS%
 set /a stoptime=%stopH%*3600+%stopM%*60+%stopS%
 if %starttime% GTR %stoptime% (set /a alltime=86400-%starttime%+%stoptime%) else (set /a alltime=%stoptime%-%starttime%)
-echo 从服务器获取详细信息
+echo Get details from server
 if !tls! EQU 1 (
 curl --resolve !domain!:443:!anycast! --retry 1 -s https://!domain!/cdn-cgi/trace -o data.txt --connect-timeout 2 --max-time 3
 ) else (
@@ -294,8 +294,8 @@ curl -x [!anycast!]:80 --retry 1 -s http://!domain!/cdn-cgi/trace -o data.txt --
 )
 cls
 if not exist "data.txt" (
-set publicip=获取超时
-set colo=获取超时
+set publicip=get timeout
+set colo=get timeout
 ) else (
 for /f "tokens=2 delims==" %%i in ('findstr "ip=" data.txt') do (
 set publicip=%%i
@@ -309,17 +309,17 @@ set colo=%%i
 )
 del rtt.txt data.txt CR.txt CRLF.txt cut.txt speed.txt > nul 2>&1
 RD /S /Q rtt > nul 2>&1
-title 优选IP已经自动复制到剪贴板
-echo 优选IP !anycast!
-echo 公网IP !publicip!
-if !tls! EQU 1 (echo 支持端口 443 2053 2083 2087 2096 8443) else (echo 支持端口 80 8080 8880 2052 2082 2086 2095)
-echo 设置宽带 !bandwidth! Mbps
-echo 实测带宽 !realbandwidth! Mbps
-echo 峰值速度 !max! kB/s
-echo 往返延迟 !avgms! 毫秒
-echo 数据中心 !colo!
-echo 总计用时 !alltime! 秒
+title The preferred IP has been automatically copied to the clipboard
+echo Preferred IP !anycast!
+echo Public IP !publicip!
+if !tls! EQU 1 (echo supported ports 443 2053 2083 2087 2096 8443) else (echo supported ports 80 8080 8880 2052 2082 2086 2095)
+echo set broadband !bandwidth! Mbps
+echo Measured bandwidth !realbandwidth! Mbps
+echo peak speed !max! kB/s
+echo round trip delay !avgms! ms
+echo data center !colo!
+echo total time !alltime! seconds
 
-echo 按任意键关闭窗口
+echo Press any key to close the window
 pause > nul
 goto :eof
