@@ -344,7 +344,7 @@ do
 			cat rtt/*.log > rtt.txt
 			status=0
 			echo "IP address to be tested"
-			cat rtt.txt | sort | awk '{print $2"\n   IP delay: "$1" ms"}'
+			cat rtt.txt | sort | awk '{print $2"\n       IP delay: "$1" ms"}'
 			for i in `cat rtt.txt | sort | awk '{print $1"_"$2}'`
 			do
 				avgms=$(echo $i | awk -F_ '{print $1}')
