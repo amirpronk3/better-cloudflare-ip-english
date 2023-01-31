@@ -69,7 +69,7 @@ fi
 echo "set bandwidth $bandwidth Mbps"
 echo "measured bandwidth $realbandwidth Mbps"
 echo "peak speed $max kB/s"
-echo -e "IP delay: \n $avgms ms"
+$ echo $ "IP delay:\n$avgms ms"
 echo "data center $colo"
 echo "total time $[$endtime-$starttime] Second"
 }
