@@ -69,7 +69,7 @@ fi
 echo "set bandwidth $bandwidth Mbps"
 echo "measured bandwidth $realbandwidth Mbps"
 echo "peak speed $max kB/s"
-echo "round trip delay $avgms ms"
+echo "  IP delay: $avgms ms"
 echo "data center $colo"
 echo "total time $[$endtime-$starttime] Second"
 }
@@ -344,7 +344,7 @@ do
 			cat rtt/*.log > rtt.txt
 			status=0
 			echo "IP address to be tested"
-			cat rtt.txt | sort | awk '{print $2" round trip delay "$1" ms"}'
+			cat rtt.txt | sort | awk '{print $2"   IP delay "$1" ms"}'
 			for i in `cat rtt.txt | sort | awk '{print $1"_"$2}'`
 			do
 				avgms=$(echo $i | awk -F_ '{print $1}')
@@ -451,11 +451,11 @@ file=$(echo $url | cut -f 2- -d'/')
 clear
 while true
 do
-	echo "1. IPV4 preferred (TLS)"
+	echo "1. IPV4 preferred(TLS)"
 	echo "2. IPV4 preferred"
-	echo "3. IPV6 preferred (TLS)"
+	echo "3. IPV6 preferred(TLS)"
 	echo "4. IPV6 preferred"
-	echo "5. Single IP speed measurement (TLS)"
+	echo "5. Single IP speed measurement(TLS)"
 	echo "6. Single IP speed measurement"
 	echo "7. Empty the cache"
 	echo "8. update data"
