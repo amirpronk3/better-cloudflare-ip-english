@@ -69,7 +69,7 @@ fi
 echo "set bandwidth $bandwidth Mbps"
 echo "measured bandwidth $realbandwidth Mbps"
 echo "peak speed $max kB/s"
-echo "  IP delay: $avgms ms"
+echo -e "IP delay: \n $avgms ms"
 echo "data center $colo"
 echo "total time $[$endtime-$starttime] Second"
 }
@@ -344,7 +344,7 @@ do
 			cat rtt/*.log > rtt.txt
 			status=0
 			echo "IP address to be tested"
-			cat rtt.txt | sort | awk '{print $2"   IP delay "$1" ms"}'
+			cat rtt.txt | sort | awk '{print $2"IP delay: "$1" ms"}'
 			for i in `cat rtt.txt | sort | awk '{print $1"_"$2}'`
 			do
 				avgms=$(echo $i | awk -F_ '{print $1}')
