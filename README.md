@@ -4,7 +4,7 @@ Find the best choice for your current network environment Cloudflare Anycast IP
 
 The old version will be out of service soon, and subsequent versions will not be updated if there are no obvious bugs!
 
-This is final forked version and I fixed knows bugs mostly in windows bat file, I will no further update this fork version, if you find any issues you can always opne an issue or make your own fork
+This is final forked version and I fixed knows bugs mostly in windows bat file, I will no further update this fork version, if you find any issues you can always open an issue or make your own fork
 
 ## ToS
 
