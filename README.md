@@ -4,6 +4,8 @@ Find the best choice for your current network environment Cloudflare Anycast IP
 
 The old version will be out of service soon, and subsequent versions will not be updated if there are no obvious bugs!
 
+This is final forked version and I fixed knows bugs mostly in windows bat file, I will no further update this fork version, if you find any issues you can always opne an issue or make your own fork
+
 ## ToS
 
 This project focuses on the study of the relationship between packet loss rate and network speed in anycast technology, for learning purposes only
@@ -67,7 +69,7 @@ Users of Windows 8 and above versions are recommended to use the UTF-8 encoded v
 Note: The ANSI encoding version can be used on all Windows platforms, and the BUG of some Windows systems will cause the console to output garbled characters
 
 In this translated version these problems are gone, so there are no difference between UTF-8 and ANSI here.
-Click to download [Windows version] (https://github.com/badafans/better-cloudflare-ip/releases/latest/download/batch.zip)
+Click to download [Windows version] (https://github.com/hoseinnikkhah/better-cloudflare-ip-english/releases/download/v1.0.0/Windows.zip)
 
 ## Linux version
 
