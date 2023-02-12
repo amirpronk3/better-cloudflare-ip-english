@@ -216,7 +216,7 @@ goto start
 )
 echo IP address to be tested
 for /f "tokens=1,2 delims= " %%i in ('sort rtt.txt') do (
-echo %%j round trip delay %%i ms
+echo %%j       delay %%i ms
 )
 title start speed test
 set /a a=0
@@ -316,7 +316,7 @@ if !tls! EQU 1 (echo support port 443 2053 2083 2087 2096 8443) else (echo suppo
 echo set broadband !bandwidth! Mbps
 echo Measured bandwidth !realbandwidth! Mbps
 echo peak speed !max! kB/s
-echo round trip delay !avgms! ms
+echo       delay !avgms! ms
 echo data center !colo!
 echo total time !alltime! Second
 
