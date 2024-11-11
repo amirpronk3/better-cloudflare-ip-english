@@ -419,7 +419,7 @@ clear
 echo "If the download of the following files fails, you can manually visit the URL to download and save them to the same directory"
 echo "https://www.baipiao.eu.org/cloudflare/colo Save as colo.txt"
 echo "https://www.baipiao.eu.org/cloudflare/url Save as url.txt"
-echo "https://www.baipiao.eu.org/cloudflare/ips-v4 Save as ips-v4.txt"
+echo "https://raw.githubusercontent.com/amirpronk3/better-cloudflare-ip-english/master/batch/ips-v4.txt Save as ips-v4.txt"
 echo "https://www.baipiao.eu.org/cloudflare/ips-v6 Save as ips-v6.txt"
 while true
 do
@@ -434,7 +434,7 @@ do
 	elif [ ! -f "ips-v4.txt" ]
 	then
 		echo "Download IPV4 data from server ips-v4.txt"
-		curl --retry 2 -s https://www.baipiao.eu.org/cloudflare/ips-v4 -o ips-v4.txt
+		curl --retry 2 -s https://raw.githubusercontent.com/amirpronk3/better-cloudflare-ip-english/master/batch/ips-v4.txt -o ips-v4.txt
 	elif [ ! -f "ips-v6.txt" ]
 	then
 		echo "Download IPV6 data from server ips-v6.txt"
